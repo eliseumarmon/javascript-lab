@@ -2,15 +2,16 @@
 
 Plataforma de aprendizaje de JavaScript basada en **12 sesiones prácticas** de preparación técnica. Material de aprendizaje independiente, centrado en practicar y comprender JavaScript.
 
-## Qué incluye esta primera versión
+## Funcionalidades
 
 - Ruta de aprendizaje con las 12 sesiones del cuaderno original.
-- Teoría, ejemplos de código, preguntas de predicción y retos.
-- Panel de progreso, marcado de sesiones y notas personales guardadas en tu navegador.
+- Sesión 01 interactiva: 8 predicciones con corrección exacta, 2 explicaciones con rúbricas heurísticas y 1 ejercicio de código con revisión guiada.
+- Explicaciones y soluciones modelo que aparecen después del primer intento, con posibilidad de reintentar.
+- Panel de progreso, marcado de sesiones, notas y respuestas persistidas localmente en tu navegador.
 - Diseño adaptable a escritorio y móvil.
 - Vue 3, TypeScript, Vite y publicación preparada para GitHub Pages.
 
-> **Estado:** MVP educativo. Las notas y la finalización se guardan en `localStorage` en este dispositivo. No hay cuentas, sincronización, ejecución remota de código ni corrección automática de ejercicios. El solucionario está pendiente de integrar.
+> **Estado:** MVP educativo. La sesión 01 dispone de evaluación automática de salidas y revisión orientativa de explicaciones. No hay cuentas, sincronización ni ejecución de código aportado por alumnos. Las sesiones 02–12 se mantienen como cuadernos de práctica. Los criterios de palabras clave no equivalen a una corrección semántica.
 
 ## Ejecutar en local
 
@@ -24,6 +25,7 @@ npm run dev
 Para comprobar el compilado:
 
 ```bash
+npm test
 npm run build
 npm run preview
 ```
@@ -42,7 +44,11 @@ La ruta base de Vite está configurada para `/javascript-lab/`. La activación d
 
 ## Organización
 
-- `src/content/sessions/`: cuaderno, una sesión Markdown por archivo.
+- `src/content/sessions/`: material de lectura de cada sesión.
+- `src/content/exercises/01.ts`: ejercicios estructurados, respuestas y rúbricas de la sesión 01.
+- `src/lib/evaluation.ts`: estrategias de evaluación sin ejecución de código.
+- `src/components/ExerciseRunner.vue` y `ExerciseCard.vue`: interfaz reutilizable de práctica.
+- `src/stores/attempts.ts`: intentos persistentes por ejercicio.
 - `src/lib/course.ts`: metadatos y carga de sesiones.
 - `src/App.vue`: navegación, progreso y lectura.
 - `src/styles.css`: sistema visual responsive.
@@ -50,11 +56,11 @@ La ruta base de Vite está configurada para `/javascript-lab/`. La activación d
 
 ## Próximas iteraciones
 
-1. Integrar el solucionario separado con revelación opcional y explicaciones.
-2. Convertir los ejercicios en desafíos interactivos con validación segura.
-3. Añadir simulacros puntuados, métricas por concepto y repaso inteligente.
-4. Escribir pruebas unitarias y end-to-end; fijar las dependencias con lockfile.
-5. Introducir sincronización opcional entre dispositivos cuando exista una necesidad real.
+1. Convertir progresivamente las sesiones 02–12 usando los componentes de la sesión 01.
+2. Incorporar ejecución aislada del código para tests automáticos de programación, sin usar `eval` en el hilo principal.
+3. Añadir estadísticas por concepto, repaso espaciado y simulacros.
+4. Añadir pruebas end-to-end y fijar dependencias mediante lockfile.
+5. Introducir sincronización opcional si surge una necesidad real.
 
 ## Origen
 

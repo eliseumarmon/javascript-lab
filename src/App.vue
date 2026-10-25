@@ -4,6 +4,8 @@ import { marked } from 'marked'
 import DOMPurify from 'dompurify'
 import { lessons, tracks } from './lib/course'
 import { useProgressStore } from './stores/progress'
+import ExerciseRunner from './components/ExerciseRunner.vue'
+import { session01Exercises } from './content/exercises/01'
 
 const progressStore = useProgressStore()
 const selectedId = ref<string | null>(null)
@@ -126,7 +128,7 @@ function saveNotes(event: Event) {
           </template>
         </section>
         <div v-if="found.length === 0" class="empty-state">No hay sesiones que coincidan con la búsqueda.</div>
-        <p class="disclaimer">Material de práctica independiente. La plataforma aún no corrige respuestas de forma automática.</p>
+        <p class="disclaimer">Material de práctica independiente. La sesión 01 incorpora corrección de predicciones y respuestas modelo; el resto de sesiones permanece en formato cuaderno.</p>
       </div>
 
       <div v-else class="page lesson-page">
@@ -139,7 +141,11 @@ function saveNotes(event: Event) {
         </div>
 
         <div class="reading-layout">
-          <article class="markdown" v-html="rendered"></article>
+          <article class="markdown">
+            <div v-html="rendered"></div>
+            <ExerciseRunner v-if="active.id === '01'" :exercises="session01Exercises" />
+            <section v-if="active.id === '01'" class="end-lesson"><h2>Cierre (5 min)</h2><p>Resume en voz alta: «var tiene ámbito de…, let y const tienen ámbito de…; TDZ significa…». Apunta tus dudas y anota qué conceptos necesitas repasar.</p></section>
+          </article>
           <aside class="study-aside">
             <div class="notes">
               <span class="note-illustration">✎</span>
